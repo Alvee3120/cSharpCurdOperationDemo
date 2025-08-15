@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SupabaseCrudMvc.Models.Book>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Available Books</h2>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Books" asp-action="Create">Add New Book</a>
+    <a class="btn btn-secondary" asp-controller="Books" asp-action="Index">View All Books</a>
+</p>
+
+@if (!Model.Any())
+{
+    <p>No books available.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Price.ToString("C")</td>
+                    <td>
+                        <a class="btn btn-info btn-sm" asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId">Details</a>
+                        <a class="btn btn-warning btn-sm" asp-controller="Books" asp-action="Edit" asp-route-id="@book.BookId">Edit</a>
+                        <a class="btn btn-danger btn-sm" asp-controller="Books" asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
